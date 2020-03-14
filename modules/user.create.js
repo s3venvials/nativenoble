@@ -1,10 +1,10 @@
-let utils = require("../../utils");
+let utils = require("../utils/index");
 let bcrypt = require("bcryptjs");
 
 let CreateUser = async (userModel, userParam, req, res) => {
     let response = { Message: null, User: null, Error: null };
     const requiredKeys = ["firstName", "lastName", "username", "password"];
-
+    
     try {
         //check for required keys
         if (Object.keys(userParam).map(key => requiredKeys.includes(key)).includes(false) ||
@@ -27,7 +27,7 @@ let CreateUser = async (userModel, userParam, req, res) => {
         let newUser = new userModel(userParam);
 
         //Save user
-        newUser.username = bcrypt.hashSync(userParam.username);
+        newUser.username = userParam.username;
         await newUser.setPassword(userParam.password);
         await newUser.save();
 

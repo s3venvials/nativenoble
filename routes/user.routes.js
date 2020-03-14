@@ -6,7 +6,7 @@ const passport = require("passport");
 module.exports = (app) => {
 
   //Example: 
-  //http://localhost:5000/api/user/register?username=test_user@email.com&password=test1&firstName=Test&lastName=User
+  //localhost:5000/api/user/register?username=test_user@email.com&password=test1&firstName=Test&lastName=User
   app.get("/api/user/register", async (req, res) => {
     try {
       let createdUser = await CreateUser(User, req.query, req, res);
@@ -76,6 +76,7 @@ module.exports = (app) => {
       let sendForgotPass = await ForgotPassword(User, req.query.username);
       res.json(sendForgotPass);
     } catch (error) {
+      console.log(error);
       res.status(400).json(error);
     }
   });

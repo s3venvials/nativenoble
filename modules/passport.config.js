@@ -1,7 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const UserModel = require("../models/user");
-const bcrypt = require("bcryptjs");
 
 module.exports = (app) => {
   try {
@@ -21,7 +20,7 @@ module.exports = (app) => {
 
             for (var i = 0; i < users.length; i++) {
 
-              if (bcrypt.compareSync(username, users[i].username)) {
+              if (username === users[i].username) {
 
                 if (!UserModel.validatePassword(password, users[i].hash)) return done(null, false, { error: "Password is invalid." });
                 

@@ -1,5 +1,5 @@
 const { sendEmail, randomBytes } = require("../utils");
-const keys = require('../config/fetch_keys');
+const keys = require('../config/keys');
 
 let ResetPass = (token, recipientEmail, senderEmail) => {
     return {
@@ -12,8 +12,8 @@ let ResetPass = (token, recipientEmail, senderEmail) => {
                 Native Noble
             </h2>
 
-            <div style="border: 1px solid #EEE; border-radius: 25px; text-align: center; margin: 0 2em">
-                <div style="padding: 2em; margin: 0 4em">
+            <div style="border: 1px solid #EEE; border-radius: 25px; text-align: center">
+                <div>
 
                     <h3 style="color: orangered">Account Password Reset</h3>
 
@@ -45,7 +45,7 @@ let SendResetPassEmail = async (user) => {
 
         await user.save();
 
-        let response = await sendEmail(keys.nodeMailer.transport, ResetPass(token, user.email, keys.nodeMailer.transport.auth.user));
+        let response = await sendEmail(keys.nodeMailer.transport, ResetPass(token, user.username, keys.nodeMailer.transport.auth.user));
         return Promise.resolve({ response, token });
 
     } catch (err) {

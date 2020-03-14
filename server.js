@@ -8,9 +8,16 @@ const mongoose = require("mongoose");
 let mongooseOptions = { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const keys = require("./config/fetch_keys");
+const keys = require("./config/keys");
 
-await mongoose.connect(keys.mongo.dbURI, mongooseOptions);
+mongoose.connect(keys.mongo.dbURI, mongooseOptions, (error) => {
+    if (error) {
+        console.log(error)
+        console.log("DB not connected!");
+    } else {
+        console.log("DB connected!");
+    }
+});
 
 app.use(bodyParser.json());
 app.use(cookieParser('your secret here'));
@@ -24,7 +31,7 @@ app.use(session({
 }));
 
 //Initialize Passport.js
-require("./modules/passport_service")(app);
+require("./modules/passport.config")(app);
 
 //Routes
 require("./routes/test.routes")(app);

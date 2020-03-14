@@ -1,0 +1,21 @@
+{
+    "mongo": {
+        "dbURI": "",
+        "secret": ""
+    },
+    "session": {
+        "cookieKey": ""
+    },
+    "nodeMailer": {
+        "transport": {
+            "service": "",
+            "auth": {
+                "user": "",
+                "pass": ""
+            }
+        }
+    },
+    "hostURI": {
+        "URL": "localhost:3000"
+    }
+}
